@@ -6,12 +6,12 @@ const UserGetAll = async (req, res) => {
 
 const UserGet = async (req, res) => {
   const Id = req.params.id;
-  User.findById(Id, (err, data) => {
+  User.findById(Id, (err, User) => {
     if (err) {
       res.status(400).json(err);
     }
 
-    res.json(data).status(200);
+    res.json(User).status(200);
   });
 };
 
@@ -19,11 +19,11 @@ const UserPost = async (req, res) => {
   const {username, email, password} = req.body;
 
   const user = new User({username, email, password});
-  user.save((err, data) => {
+  user.save((err, User) => {
     if (err) {
       return res.status(400).json({err});
     }
-    res.json({data});
+    res.json({User});
   });
 };
 
