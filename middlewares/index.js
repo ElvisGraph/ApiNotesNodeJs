@@ -1,3 +1,3 @@
 module.exports = {
-    NotFound: require('./NotFound'),
+  NotFound: require('./NotFound')
 }

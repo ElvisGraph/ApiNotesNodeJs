@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose')
 require('dotenv').config()
 
 const connect = () => {
@@ -9,8 +9,8 @@ const connect = () => {
       useUnifiedTopology: true
     })
     .then(
-      () => console.log("Database Conetada"),
+      () => console.log('Database Conetada'),
       (err) => console.log(`${err}`)
-    );
-};
-module.exports = {connect};
+    )
+}
+module.exports = { connect }
