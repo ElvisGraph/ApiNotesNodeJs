@@ -1,10 +1,12 @@
-const express = require('express');
-const Router = express.Router();
+const express = require('express')
+const Router = express.Router()
+const { body } = require('express-validator')
 
-const {UserController} = require('../controllers')
+// User Controller
+const { UserController } = require('../controllers')
 
-Router.post('/', UserController.UserPost);
-Router.get('/:id', UserController.UserGet);
-Router.get('/all', UserController.UserGetAll);
+Router.get('/all', UserController.FindAll)
+Router.get('/:id', UserController.FindById)
+Router.delete('/:id', UserController.DeleteById)
 
 module.exports = Router

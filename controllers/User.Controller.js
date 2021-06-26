@@ -1,34 +1,53 @@
-const {User} = require("../models");
+const { User } = require("../models");
 
-const UserGetAll = async (req, res) => {
-  res.send("User GET All");
-};
-
-const UserGet = async (req, res) => {
-  const Id = req.params.id;
-  User.findById(Id, (err, User) => {
-    if (err) {
-      res.status(400).json(err);
-    }
-
-    res.json(User).status(200);
+// Obtener Todos Los Usuarios
+const FindAll = async (req, res) => {
+  await User.find({}).then((result) => {
+    res.json({
+      message: "success",
+      data: result
+    });
   });
 };
 
-const UserPost = async (req, res) => {
-  const {username, email, password} = req.body;
-
-  const user = new User({username, email, password});
-  user.save((err, User) => {
+// Obtener Un Solo Usurio Por ID
+const FindById = async (req, res) => {
+  const { id } = req.params;
+  await User.findById(req.params.id, (err, resul) => {
     if (err) {
-      return res.status(400).json({err});
+      res.status(400).json({
+        message: "error",
+        description: "User not found"
+      });
+    } else {
+      res.status(200).json({
+        message: "success",
+        data: resul
+      });
     }
-    res.json({User});
   });
 };
 
+// Eliminar Un Usuario
+const DeleteById = async (req, res) => {
+  await User.findByIdAndRemove(req.params.id)
+    .then((resul) => {
+      res.json({
+        message: "success",
+        description: "User successfully deleted"
+      });
+    })
+    .catch((err) => {
+      res.json({
+        message: "error",
+        description: "There was a problem deleting the user"
+      });
+    });
+};
+
+// Exportador
 module.exports = {
-  UserGet,
-  UserGetAll,
-  UserPost,
+  FindById,
+  FindAll,
+  DeleteById
 };
