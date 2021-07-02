@@ -1,5 +1,8 @@
 const { validationResult } = require("express-validator");
 const { User } = require("../../models");
+const jwt = require('jwt-simple')
+const { JWT_SECRET } = require("../../config")
+const moment = require('moment')
 
 const Signup = async (req, res) => {
 
@@ -17,9 +20,22 @@ const Signup = async (req, res) => {
 
     user.save()
         .then(user => {
+
+
+            // Autentication
+            const payload = {
+                sub: user._id,
+                iat: moment().unix(),
+                exp: moment().add(8, 'hours').unix()
+
+            };
+
+            const token = jwt.encode(payload, JWT_SECRET);
+
             res.status(201).json({
                 message: "success",
                 description: "User added successfully",
+                token: token,
                 data: user
             });
         })

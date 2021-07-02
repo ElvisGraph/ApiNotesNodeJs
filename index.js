@@ -2,13 +2,14 @@ const express = require('express')
 const Server = express()
 const { PORT, APPLICATION_NAME } = require('./config')
 const morgan = require('morgan')
-// const helmet = require('helmet')
+const helmet = require('helmet')
 const path = require('path')
 const Router = require('./routes/index')
 const { NotFound } = require('./middlewares')
 
+// Middelwares
 Server.use(express.json())
-// Server.use(helmet())
+Server.use(helmet())
 Server.use(express.urlencoded({ extended: false }))
 Server.use(morgan('dev'))
 

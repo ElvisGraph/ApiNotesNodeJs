@@ -12,6 +12,7 @@ const FindAll = async (req, res) => {
 
 // Obtener Un Solo Usurio Por ID
 const FindById = async (req, res) => {
+
   const { id } = req.params;
   await User.findById(req.params.id, (err, resul) => {
     if (err) {
